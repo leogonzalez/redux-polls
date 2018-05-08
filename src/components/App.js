@@ -4,6 +4,7 @@ import { handleInitialData } from "../actions/shared";
 import Dashboard from "./Dashboard";
 import LoadingBar from "react-redux-loading";
 import Leaderboard from "./LeaderBoard";
+import AddPoll from "./AddPoll";
 
 class App extends Component {
   componentDidMount() {
@@ -17,7 +18,7 @@ class App extends Component {
         <LoadingBar />
         {this.props.loading ? null : (
           <div>
-            <Leaderboard />
+            <AddPoll/>
 
           </div>
         )}
@@ -33,3 +34,7 @@ function mapStateToProps({ authUser }) {
 }
 
 export default connect(mapStateToProps)(App);
+
+
+// <Leaderboard />
+// <Dashboard />
