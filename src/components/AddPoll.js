@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-// import { connect } from "react-redux";
+import { connect } from "react-redux";
+import { handleAddPoll } from "../actions/polls";
 
 // reason why using component state -> does not make sense include this in redux
 // reason why using a controlled compnent -> UI dependent on the component state
@@ -21,13 +22,16 @@ class AddPoll extends Component {
   isDisabled = () => {
     return !Object.values(this.state).filter(a => !(a === "")).length === 5;
   };
-  onSubmitHandler = () => {
+  handleSubmit = (e) => {
+    e.preventDefault()
     // should dispatch an action creator that adds a new poll to the redux store
+    return this.props.dispatch(handleAddPoll(this.state));
   };
   render() {
+
     const { question } = this.state;
     return (
-      <form className="add-form">
+      <form className="add-form" onSubmit={this.handleSubmit}>
         <h3 style={{ marginBottom: 5 }}>What is your question?</h3>
         <input
           value={question}
@@ -56,7 +60,6 @@ class AddPoll extends Component {
           );
         })}
         <button
-          onSubmit={this.onSubmitHandler}
           className="btn"
           type="submit"
           disabled={this.isDisabled()}
@@ -68,4 +71,5 @@ class AddPoll extends Component {
   }
 }
 
-export default AddPoll;
+
+export default connect()(AddPoll);
