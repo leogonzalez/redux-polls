@@ -22,13 +22,12 @@ class AddPoll extends Component {
   isDisabled = () => {
     return !Object.values(this.state).filter(a => !(a === "")).length === 5;
   };
-  handleSubmit = (e) => {
-    e.preventDefault()
-    // should dispatch an action creator that adds a new poll to the redux store
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.history.push("/");
     return this.props.dispatch(handleAddPoll(this.state));
   };
   render() {
-
     const { question } = this.state;
     return (
       <form className="add-form" onSubmit={this.handleSubmit}>
@@ -59,17 +58,12 @@ class AddPoll extends Component {
             </div>
           );
         })}
-        <button
-          className="btn"
-          type="submit"
-          disabled={this.isDisabled()}
-        >
+        <button className="btn" type="submit" disabled={this.isDisabled()}>
           Submit
         </button>
       </form>
     );
   }
 }
-
 
 export default connect()(AddPoll);
