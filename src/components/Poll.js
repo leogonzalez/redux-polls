@@ -1,14 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getPercentage } from "../utils/helpers";
+import { handleAddAnswer} from '../actions/answers'
 
 const getVoteKeys = () => ["aVotes", "bVotes", "cVotes", "dVotes"];
 
 class Poll extends Component {
+
   handleAnswer = (answer) => {
-    const {poll, authUser} = this.props;
+    const {poll, authUser, dispatch} = this.props;
     this.answered = true;
     console.log('Add answer: ', answer);
+    dispatch(handleAddAnswer({authUser, id: poll.id, answer}));
   }
   render() {
     if (this.props.poll === null) {
@@ -31,7 +34,6 @@ class Poll extends Component {
           {["aText", "bText", "cText", "dText"].map(key => {
 
             const count = poll[key[0]+'Votes'].length;
-            console.log(vote, key[0]);
             return (
               <li
                 onClick={ () => {
